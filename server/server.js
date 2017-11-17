@@ -9,6 +9,7 @@ const {ObjectID}=require('mongodb');
 
 //Use Express
 var app=express();
+const port=process.env.PORT || 3000:
 
 //configure middleware to use BodyParser
 app.use(bodyParser.json());
@@ -52,8 +53,8 @@ app.get('/todos/:id',(req,res)=>{
 
 
 //Set up web server
-app.listen(3000,()=>{
-  console.log('Server Started:Listening on port 3000');
+app.listen(port,()=>{
+  console.log(`Server Started:Listening on port ${port}`);
 });
 
 module.exports={app};
