@@ -9,7 +9,7 @@ const {ObjectID}=require('mongodb');
 
 //Use Express
 var app=express();
-const port=process.env.PORT || 3000:
+const port=process.env.PORT || 3000;
 
 //configure middleware to use BodyParser
 app.use(bodyParser.json());
