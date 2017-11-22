@@ -1,3 +1,5 @@
+require('./config/config');
+
 const _=require('lodash');
 const express=require('express');
 const bodyParser=require('body-parser');
@@ -10,7 +12,7 @@ const {ObjectID}=require('mongodb');
 
 //Use Express
 var app=express();
-const port=process.env.PORT || 3000;
+const port=process.env.PORT;
 
 //configure middleware to use BodyParser
 app.use(bodyParser.json());
