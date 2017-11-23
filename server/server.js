@@ -8,6 +8,7 @@ const bodyParser=require('body-parser');
 var {mongoose}=require('./db/mongoose');
 var {Todo}=require('./models/todo');
 var {User}=require('./models/user');
+var {authenticate}=require('./middleware/authenticate');
 const {ObjectID}=require('mongodb');
 
 //Use Express
@@ -16,6 +17,13 @@ const port=process.env.PORT;
 
 //configure middleware to use BodyParser
 app.use(bodyParser.json());
+
+
+
+
+app.get('/users/me',authenticate,(req,res)=>{
+  res.send(req.user);
+});
 
 //Set up post Route
 app.post('/todos',(req,res)=>{
