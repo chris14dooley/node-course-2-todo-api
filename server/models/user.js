@@ -1,8 +1,9 @@
 const mongoose=require('mongoose');
 const validator=require('validator');
+const jwt = require('jsonwebtoken');
+const _=require('lodash');
 
-//Create model
-var User=mongoose.model('User',{
+var UserSchema=new mongoose.Schema({
   email:{
     type:String,
     required:true,
@@ -30,5 +31,27 @@ var User=mongoose.model('User',{
       }
     }]
 });
+
+//Ovveride the toJSON method in order to limit the info coming back
+UserSchema.methods.toJSON=function (){
+  var user=this;
+  var userObject=user.toObject();
+
+  return _.pick(userObject,['_id','email']);
+};
+
+//instance methods - use the generated object
+UserSchema.methods.generateAuthToken=function () {
+  var user=this;
+  var access='auth';
+  var token=jwt.sign({_id:user._id.toHexString(),access},'abc123').toString();
+  user.tokens.push({access,token});
+  return user.save().then(()=>{
+    return token;
+  })
+};
+
+//Create model
+var User=mongoose.model('User',UserSchema);
 
 module.exports={User};
