@@ -18,9 +18,6 @@ const port=process.env.PORT;
 //configure middleware to use BodyParser
 app.use(bodyParser.json());
 
-
-
-
 app.get('/users/me',authenticate,(req,res)=>{
   res.send(req.user);
 });
@@ -37,7 +34,6 @@ app.post('/todos',(req,res)=>{
   },(e)=>{
     res.status(400).send(e);
   });
-
 });
 
 //POST Users, use pick, save ,200,400
