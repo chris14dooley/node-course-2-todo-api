@@ -28,6 +28,7 @@ app.post('/users/login',(req,res)=>{
 
     //verify that user exists
     User.findByCredentials(body.email,body.password).then((user)=>{
+      //return the user with the Token attached so it can be used on Subsequnt calls.
       return user.generateAuthToken().then((token)=>{
         res.header('x-auth',token).send(user);
       });
